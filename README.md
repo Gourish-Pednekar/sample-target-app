@@ -3,12 +3,40 @@
 A tiny FastAPI app used as the target repository for the
 [issue-crew](https://github.com/Gourish-Pednekar/issue-crew) agents.
 
-It ships with deliberately failing tests that describe a feature
-(pagination on `GET /users`). The agent's job is to make them pass.
+It ships with deliberately failing tests that describe features to build
+(pagination, input validation and a total-count header on `GET /users`).
+The agent's job is to make them pass.
 
 ```bash
 pip install fastapi httpx pytest
 pytest
 ```
 
-The git tag `baseline-pagination` marks the starting state (failing tests).
+`pytest.ini` puts the project root on the import path, so plain `pytest` works.
+
+## Baselines (git tags)
+
+Each tag marks a starting state with failing tests. Agents start from one of these.
+
+| Tag                   | What the tests ask for                                                                                            | Expected on a fresh checkout |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| `baseline-pagination` | `page` and `limit` query params on `GET /users`                                                                   | 3 failed                     |
+| `baseline-validation` | Pagination already works; invalid `page`/`limit` must return 422 and the response needs an `X-Total-Count` header | 3 failed, 4 passed           |
+
+Reset the app code to a baseline before a run:
+
+```bash
+git checkout baseline-validation -- app/main.py
+pytest
+```
+
+## Solutions written by the crew
+
+Each agent run is saved on its own branch so the history stays comparable:
+
+| Branch                    | Produced by                            |
+| ------------------------- | -------------------------------------- |
+| `run3-validation-crew-v1` | Crew v1 (Planner/Coder/Tester)         |
+| `run4-validation-crew-v2` | Crew v2 (adds Reviewer and Supervisor) |
+
+`main` always stays at the failing baseline.
