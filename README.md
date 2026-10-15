@@ -34,9 +34,11 @@ pytest
 
 Each agent run is saved on its own branch so the history stays comparable:
 
-| Branch                    | Produced by                            |
-| ------------------------- | -------------------------------------- |
-| `run3-validation-crew-v1` | Crew v1 (Planner/Coder/Tester)         |
-| `run4-validation-crew-v2` | Crew v2 (adds Reviewer and Supervisor) |
+| Branch                            | Produced by                                                                                                                    |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `run3-validation-crew-v1`         | Crew v1 (Planner/Coder/Tester)                                                                                                 |
+| `run4-validation-crew-v2`         | Crew v2 (adds Reviewer and Supervisor)                                                                                         |
+| `run5-validation-crew-v2-sandbox` | Crew v2 with tests run in the Docker sandbox                                                                                   |
+| `crew/issue-1-1792077192`         | Crew v2 via `issue_to_pr.py` from GitHub issue #1 (PR #2, closed unmerged). Not asked for in the issue: it caps `limit` at 100 |
 
 `main` always stays at the failing baseline.
